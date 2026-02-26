@@ -1,0 +1,6 @@
+http://localhost:8084/products/inventory/check?productaCode=1&quantity=2
+checking inventry working 
+
+placing order
+http://localhost:8082/orders/placeOrder?productCode=1&quantity=20
+
