@@ -208,4 +208,3 @@ Build a microservices architecture showcasing User Service, Order Service, and A
 * Redis
 * Zipkin / Sleuth
 * Docker / docker-compose
-ou want me to create that next?
