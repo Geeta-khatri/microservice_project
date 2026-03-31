@@ -208,7 +208,4 @@ Build a microservices architecture showcasing User Service, Order Service, and A
 * Redis
 * Zipkin / Sleuth
 * Docker / docker-compose
-
-
-
-Do you want me to create that next?
+ou want me to create that next?
