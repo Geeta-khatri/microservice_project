@@ -1,5 +1,6 @@
 package com.Inventory_Service.Entity;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +22,7 @@ public class Product {
     private String name;
 
     private String description;
-    private int quantity;
+    private Integer quantity;
+    
     private Double price;
 }
