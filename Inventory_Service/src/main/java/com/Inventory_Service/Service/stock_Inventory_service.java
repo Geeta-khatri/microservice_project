@@ -1,5 +1,6 @@
 package com.Inventory_Service.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,9 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.Inventory_Service.DTO.ProductReqDTO;
 import com.Inventory_Service.Entity.Product;
 import com.Inventory_Service.Repository.ProductRepo;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +51,7 @@ public class stock_Inventory_service {
 	
 	}
 
-	public ResponseEntity<String> stockUpdate(int productId, int  quantity) {
+	public ResponseEntity<String> stockReduce(int productId, int  quantity) {
 		log.info("entered stockUpdate service");
 		log.info("input is "+productId +"and "+quantity);
 
@@ -61,6 +64,39 @@ public class stock_Inventory_service {
 		}
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body("Inventory updated successfully ");
+	}
+
+	
+	
+	public ResponseEntity<String> stockUpdate(int productId, int  quantity) {
+		log.info("entered stockUpdate service");
+		log.info("input is "+productId +"and "+quantity);
+
+		Optional<Product> product=prepo.findById(productId);
+		if(product.isPresent()) {
+			Product pExist=product.get();
+			pExist.setQuantity(quantity);
+			log.info("quantity is "+pExist.getQuantity());
+			prepo.save(pExist);
+		}
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body("Inventory updated successfully ");
+	}
+
+	//commentiong it as saveAll itself is transactional
+	//@Transactional
+	public void appProducts(List<ProductReqDTO> prod) {
+		List<Product> products=new ArrayList<>();
+		for(ProductReqDTO product :prod) {
+			Product p=new Product();
+			p.setDescription(product.getDescription());
+			p.setName(product.getName());
+			p.setPrice(product.getPrice());
+			p.setQuantity(product.getQuantity());
+			products.add(p);
+		}
+		prepo.saveAll(products);
+		
 	}
 
 	
