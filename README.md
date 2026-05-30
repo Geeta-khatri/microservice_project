@@ -18,12 +18,10 @@ Build a microservices architecture showcasing User Service, Order Service, and A
 
 ### Service-to-Service Communication
 
-**What’s Done:** Basic inter-service communication implemented
+**What’s Done:** Basic inter-service communication implemented using feign client and error responses using globalExceptionHandler
 **Next Steps:**
 
-* Replace basic calls with Feign Client
-* Define clear API contracts (DTOs)
-* Handle timeouts & error responses
+* Handle timeouts
 * Standardize response format
 * Avoid tight coupling
   **Goal:** Clean, maintainable communication between services
