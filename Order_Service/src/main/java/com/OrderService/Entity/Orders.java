@@ -2,7 +2,13 @@ package com.OrderService.Entity;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.OrderService.enums.OrderStatus;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,12 +27,16 @@ public class Orders {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	private String productId;
+	private Integer productId;
 	private int quantity;
 	private Double price;
-	private String userId;
-	private String status;   // CREATED, FAILED, CANCELLED
-	private LocalDateTime crestedAt;
+	private Integer userId;
+	
+	@Enumerated(EnumType.STRING)
+	private OrderStatus status;   // CREATED, FAILED, CANCELLED
+	
+	@CreationTimestamp
+	private LocalDateTime createdAt;
 	
 	
 	
