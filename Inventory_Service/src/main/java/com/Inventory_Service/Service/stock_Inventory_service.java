@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.Inventory_Service.DTO.ProductReqDTO;
 import com.Inventory_Service.Entity.Product;
+import com.Inventory_Service.Exception_Handler.InvalidProductException;
 import com.Inventory_Service.Repository.ProductRepo;
 
 import jakarta.transaction.Transactional;
@@ -86,6 +87,9 @@ public class stock_Inventory_service {
 	//commentiong it as saveAll itself is transactional
 	//@Transactional
 	public void appProducts(List<ProductReqDTO> prod) {
+		if(prod==null || prod.isEmpty()) {
+			throw new InvalidProductException("Product list cannot be empty");
+		}
 		List<Product> products=new ArrayList<>();
 		for(ProductReqDTO product :prod) {
 			Product p=new Product();
