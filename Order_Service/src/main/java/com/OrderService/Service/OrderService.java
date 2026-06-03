@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import com.OrderService.Controller.InventoryClient;
 import java.util.List;
 import com.OrderService.DTO.OrderReqDTO;
@@ -24,7 +24,7 @@ public class OrderService {
 	private final InventoryClient inventoryClient;
 
 	
-	
+	@CircuitBreaker(name="inventoryCircuitBreaker" ,fallbackMethod="inventoryFallBack")
 	public String OrderReq(OrderReqDTO orderReqDTO) {
 		if(orderReqDTO== null || orderReqDTO.getQuantity()<=0) {
 			
@@ -52,7 +52,12 @@ public class OrderService {
 		}
 	}
 
+	public String inventoryFallBack(
+	        OrderReqDTO dto,
+	        Throwable ex) {
 
+	    return "Inventory service is unavailable. Please try later.";
+	}
 
 	public ResponseEntity<List<Orders>> AllOrders() {
 		List<Orders> OrdersList=orderRepo.findAll();
